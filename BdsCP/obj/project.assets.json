@@ -48,19 +48,25 @@
     ]
   },
   "packageFolders": {
-    "/Users/peterxiong/.nuget/packages/": {}
+    "C:\\Users\\Peter Xiong\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/peterxiong/RiderProjects/BdsCouplePlugin/BdsCP/BdsCP.csproj",
+      "projectUniqueName": "G:\\Source\\Repos\\BdsCP\\BdsCP\\BdsCP.csproj",
       "projectName": "BdsCP",
-      "projectPath": "/Users/peterxiong/RiderProjects/BdsCouplePlugin/BdsCP/BdsCP.csproj",
-      "packagesPath": "/Users/peterxiong/.nuget/packages/",
-      "outputPath": "/Users/peterxiong/RiderProjects/BdsCouplePlugin/BdsCP/obj/",
+      "projectPath": "G:\\Source\\Repos\\BdsCP\\BdsCP\\BdsCP.csproj",
+      "packagesPath": "C:\\Users\\Peter Xiong\\.nuget\\packages\\",
+      "outputPath": "G:\\Source\\Repos\\BdsCP\\BdsCP\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/Users/peterxiong/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Peter Xiong\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -104,7 +110,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.301/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
       }
     }
   }
