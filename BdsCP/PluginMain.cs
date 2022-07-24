@@ -16,6 +16,11 @@ public class PluginMain : IPluginInitializer
         Configuration.InitAsync().Wait();
         Data.InitAsync();
 #pragma warning restore CS4014
+        if (Configuration.Config.SimpleTitle)
+        {
+            SimpleTitle.Init();
+        }
+
         DynamicCommand.RegisterCommand<CoupleCommand>();
     }
 
@@ -26,7 +31,7 @@ public class PluginMain : IPluginInitializer
 
     public string Introduction => "CP插件";
 
-    public Version Version => new (0, 1, 1);
+    public Version Version => new(0, 1, 1);
 
     public static readonly EconomySystem EconomySystem = new();
 }
