@@ -1,24 +1,31 @@
 ﻿using BdsCP.Util;
 using LLNET.Event;
+using LLNET.Hook;
 using MC;
 
 namespace BdsCP;
 
-public class SimpleTitle
+public static class SimpleTitle
 {
     private static readonly Configuration Configuration = Configuration.Config;
-    
-    public SimpleTitle()
+
+    public static void Init()
     {
         PlayerChatEvent.Event += ev =>
         {
             var text = ev.Message;
-            if ( text == null)
+            if (text == null)
                 return true;
-            
+
             Level.BroadcastText(Format(text, ev.Player), TextType.RAW);
             return false;
         };
+    }
+
+    private static int GetDim(Player player)
+    {
+        return HookAPI.SymCall<int, IntPtr>(
+            "?getDimensionId@Actor@@UEBA?AV?$AutomaticID@VDimension@@H@@XZ", player.Intptr);
     }
 
     private static string Format(string text, Player player)
@@ -29,13 +36,13 @@ public class SimpleTitle
                 var couple = Data.GetCoupleByPlayer(pl);
                 return couple == null ? string.Empty : couple.Name;
             })
-            .ReplaceVariable("name", player, pl=>pl.Name)
+            .ReplaceVariable("name", player, pl => pl.Name)
             .ReplaceVariable("msg", player, _ => text)
             .ReplaceVariable("platform", player, pl => pl.DeviceTypeName)
-            .ReplaceVariable("time", player, _ => DateTime.Now.ToShortTimeString());
+            .ReplaceVariable("time", player, _ => DateTime.Now.ToShortTimeString())
+            .ReplaceVariable("ping", player, pl => pl.AvgPing.ToString())
+            .ReplaceVariable("dim", player, pl => Configuration.DimensionName[GetDim(pl)]);
     }
-
-    
 }
 
 static class Text
