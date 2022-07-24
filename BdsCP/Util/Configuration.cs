@@ -14,7 +14,7 @@ public class Configuration
     public decimal Cost { get; set; } = decimal.Zero;
     
     [JsonProperty("titleTemplate")]
-    public string TitleTemplate { get; set; } = "[${platform}][${time}][${cp}]<${name}>${msg}";
+    public string TitleTemplate { get; set; } = "[${platform}][${time}][${cp}]<${name}> ~$ ${msg}";
     
     [JsonIgnore]
     public static Configuration Config { get; private set; } = null!;
