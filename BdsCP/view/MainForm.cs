@@ -37,12 +37,17 @@ public class MainForm
             void Tell(Player pl)
             {
                 pl.SendText(pl.IsOP ? 
-                    "§c此功能未包括在定制协议中，暂不予以实现（主要是界面太单调了，放几个按钮占位置，手动滑稽，只有OP才会看到这条提示）" : "§e此功能未开放");
+                    "§c此功能未包括在定制协议中，暂不予以实现（主要是界面太单调了，放几个按钮占位置，手动滑稽，只有OP才会看到这条提示）" 
+                    : "§e此功能未开放");
             }
 
             _form.AddButton("Oh baby 情话多说一点（私信）", string.Empty, Tell)
                 .AddButton("想我就多看一眼（交换坐标）", string.Empty, Tell)
-                .AddButton("在大头贴画满心号，贴在手机上对你微笑（编辑称号）", string.Empty, pl => { })
+                .AddButton("在大头贴画满心号，贴在手机上对你微笑（编辑称号）", string.Empty, pl =>
+                {
+                    var form = new EditTitleForm(pl);
+                    form.Show();
+                })
                 .AddButton("爱过也哭过笑过痛过之后只剩再见（离婚）", string.Empty, pl => { });
         }
     }

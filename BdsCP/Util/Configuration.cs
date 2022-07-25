@@ -20,13 +20,25 @@ public class Configuration
     /// 登记结婚花费
     /// </summary>
     [JsonProperty("cost")]
-    public decimal Cost { get; set; } = decimal.Zero;
+    public long Cost { get; set; }
     
     /// <summary>
     /// 内置称号系统称号模板
     /// </summary>
     [JsonProperty("titleTemplate")]
-    public string TitleTemplate { get; set; } = "[${platform}][${time}][${cp}]<${name}> ~$ ${msg}";
+    public string TitleTemplate { get; set; } = "§2[${platform}]§e[${time}]§c[${cp}]§3<${name}>§7~$§r ${msg}";
+
+    /// <summary>
+    /// 修改CP称号花费
+    /// </summary>
+    [JsonProperty("changeTitleCost")]
+    public long ChangeTitleCost { get; set; }
+
+    /// <summary>
+    /// 修改带颜色代码的CP称号花费
+    /// </summary>
+    [JsonProperty("colorTitleCost")]
+    public long ColorTitleCost { get; set; }
 
     /// <summary>
     /// 维度名称
