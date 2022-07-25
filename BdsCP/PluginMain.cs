@@ -25,6 +25,8 @@ public class PluginMain : IPluginInitializer
         DynamicCommand.RegisterCommand<CoupleCommand>();
         ServerStartedEvent.Event += ev =>
         {
+            EconomySystem = new EconomySystem();
+            
             Console.WriteLine("========================================");
             Console.WriteLine("[定制插件][BdsCp] 已加载");
             Console.WriteLine("作者：PeterXiong720");
@@ -43,5 +45,5 @@ public class PluginMain : IPluginInitializer
 
     public Version Version => new(0, 1, 1);
 
-    public static readonly EconomySystem EconomySystem = new();
+    public static EconomySystem EconomySystem { get; private set; } = null!;
 }

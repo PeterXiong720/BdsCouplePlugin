@@ -1,4 +1,5 @@
 ﻿using BdsCP.Util;
+using LLNET;
 using LLNET.Form;
 using MC;
 
@@ -30,9 +31,7 @@ public class MarryForm
         var message = data["message"].Value ?? string.Empty;
         if (lover == null)
             return;
-        var loverPlayer = (from pl in Level.GetAllPlayers()
-            where pl.Xuid != player.Xuid
-            select pl).FirstOrDefault(pl => pl.Xuid == lover);
+        var loverPlayer = GlobalService.Level.GetPlayer(lover);
         loverPlayer?.SendModalForm(
             "求婚申请",
             $"{message} -- {player.Name}",
@@ -46,12 +45,12 @@ public class MarryForm
                     PluginMain.EconomySystem.GetMoney(lover) < Configuration.Cost)
                 {
                     player.SendModalForm(
-                        "§c错误", 
-                        "您或对方余额不足，无法完成登记。如有任何异议请向管理员反馈", 
+                        "§c错误",
+                        "您或对方余额不足，无法完成登记。如有任何异议请向管理员反馈",
                         "确定", "反馈", _ => { });
                     loverPlayer.SendModalForm(
-                        "§c错误", 
-                        "您或对方余额不足，无法完成登记。如有任何异议请向管理员反馈", 
+                        "§c错误",
+                        "您或对方余额不足，无法完成登记。如有任何异议请向管理员反馈",
                         "确定", "反馈", _ => { });
                     return;
                 }
@@ -59,6 +58,7 @@ public class MarryForm
                 PluginMain.EconomySystem.ReduceMoney(player.Xuid, Configuration.Cost);
                 PluginMain.EconomySystem.ReduceMoney(lover, Configuration.Cost);
                 Data.AddCouple(player, loverPlayer);
+                Data.SaveAsync().Wait();
             });
     }
 

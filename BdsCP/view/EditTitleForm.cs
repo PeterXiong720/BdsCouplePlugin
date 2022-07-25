@@ -39,6 +39,7 @@ public class EditTitleForm
         }
         PluginMain.EconomySystem.ReduceMoney(player.Xuid, cost);
         couple.Name = newTitle;
+        Data.SaveAsync().Wait();
     }
 
     public EditTitleForm(Player player)

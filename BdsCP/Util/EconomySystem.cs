@@ -14,7 +14,7 @@ public class EconomySystem
     public delegate bool ReduceMoneyHandler(string xuid, long money);
     
     [DllImport("kernel32.dll", SetLastError = true)]
-    public static extern int GetProcAddress(IntPtr hModule, string lpProcName);
+    public static extern IntPtr GetProcAddress(IntPtr hModule, string lpProcName);
 
     public readonly GetMoneyHandler GetMoney;
 
@@ -34,28 +34,28 @@ public class EconomySystem
 
         var handler = llmoney.Handler;
         var getMoney = GetProcAddress(handler, "LLMoneyGet");
-        if (getMoney != 0)
+        if (getMoney == IntPtr.Zero)
         {
             throw new Exception("LLMoney not found!");
         }
-        GetMoney = Marshal.GetDelegateForFunctionPointer<GetMoneyHandler>(new IntPtr(getMoney));
+        GetMoney = Marshal.GetDelegateForFunctionPointer<GetMoneyHandler>(getMoney);
         var setMoney = GetProcAddress(handler, "LLMoneySet");
-        if (setMoney != 0)
+        if (setMoney == IntPtr.Zero)
         {
             throw new Exception("LLMoney not found!");
         }
-        SetMoney = Marshal.GetDelegateForFunctionPointer<SetMoneyHandler>(new IntPtr(setMoney));
+        SetMoney = Marshal.GetDelegateForFunctionPointer<SetMoneyHandler>(setMoney);
         var addMoney = GetProcAddress(handler, "LLMoneyAdd");
-        if (addMoney != 0)
+        if (addMoney == IntPtr.Zero)
         {
             throw new Exception("LLMoney not found!");
         }
-        AddMoney = Marshal.GetDelegateForFunctionPointer<AddMoneyHandler>(new IntPtr(addMoney));
+        AddMoney = Marshal.GetDelegateForFunctionPointer<AddMoneyHandler>(addMoney);
         var reduceMoney = GetProcAddress(handler, "LLMoneyReduce");
-        if (reduceMoney != 0)
+        if (reduceMoney == IntPtr.Zero)
         {
             throw new Exception("LLMoney not found!");
         }
-        ReduceMoney = Marshal.GetDelegateForFunctionPointer<ReduceMoneyHandler>(new IntPtr(reduceMoney));
+        ReduceMoney = Marshal.GetDelegateForFunctionPointer<ReduceMoneyHandler>(reduceMoney);
     }
 }
