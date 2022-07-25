@@ -2,6 +2,7 @@
 using BdsCP.Util;
 using LLNET.Core;
 using LLNET.DynamicCommand;
+using LLNET.Event;
 
 [assembly: LibPath("plugins\\BdsCP\\libs")]
 
@@ -22,6 +23,15 @@ public class PluginMain : IPluginInitializer
         }
 
         DynamicCommand.RegisterCommand<CoupleCommand>();
+        ServerStartedEvent.Event += ev =>
+        {
+            Console.WriteLine("========================================");
+            Console.WriteLine("[定制插件][BdsCp] 已加载");
+            Console.WriteLine("作者：PeterXiong720");
+            Console.WriteLine("PTSoft copyright (c) 2022.");
+            Console.WriteLine("========================================");
+            return true;
+        };
     }
 
     public Dictionary<string, string> MetaData => new()

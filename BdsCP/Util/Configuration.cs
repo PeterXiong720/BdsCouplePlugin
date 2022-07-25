@@ -40,25 +40,23 @@ public class Configuration
     public static async Task InitAsync()
     {
         Directory.CreateDirectory("plugins/BdsCp");
-        Configuration? config;
         if (!File.Exists("plugins/BdsCp/configuration.json"))
         {
-            config = new Configuration();
+            Config = new Configuration();
             await SaveAsync();
         }
         else
         {
             using var sr = new StreamReader("plugins/BdsCp/configuration.json");
             var json = await sr.ReadToEndAsync();
-            config = JsonConvert.DeserializeObject<Configuration>(json);
+            var config = JsonConvert.DeserializeObject<Configuration>(json);
+            Config = config ?? new Configuration();
         }
-
-        Config = config ?? new Configuration();
     }
 
     public static async Task SaveAsync()
     {
         await using var sw = new StreamWriter("plugins/BdsCp/configuration.json");
-        await sw.WriteAsync(JsonConvert.SerializeObject(Config));
+        await sw.WriteAsync(JsonConvert.SerializeObject(Config, Formatting.Indented));
     }
 }
