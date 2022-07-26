@@ -1,12 +1,12 @@
-﻿using BdsCP.Command;
-using BdsCP.Util;
-using LLNET.Core;
+﻿using LLNET.Core;
 using LLNET.DynamicCommand;
 using LLNET.Event;
+using PTSoft.FantasyCouple.Command;
+using PTSoft.FantasyCouple.Util;
 
 [assembly: LibPath("plugins\\BdsCP\\libs")]
 
-namespace BdsCP;
+namespace PTSoft.FantasyCouple;
 
 [PluginMain("BdsCP")]
 public class PluginMain : IPluginInitializer
@@ -25,7 +25,7 @@ public class PluginMain : IPluginInitializer
         DynamicCommand.RegisterCommand<CoupleCommand>();
         ServerStartedEvent.Event += ev =>
         {
-            EconomySystem = new EconomySystem();
+            //EconomySystem = new EconomySystem();
             
             Console.WriteLine("========================================");
             Console.WriteLine("[定制插件][BdsCp] 已加载");
@@ -45,5 +45,5 @@ public class PluginMain : IPluginInitializer
 
     public Version Version => new(0, 1, 1);
 
-    public static EconomySystem EconomySystem { get; private set; } = null!;
+    //public static EconomySystem EconomySystem { get; private set; } = null!;
 }

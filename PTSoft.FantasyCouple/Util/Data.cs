@@ -1,8 +1,8 @@
-﻿using BdsCP.Model;
-using MC;
+﻿using MC;
 using Newtonsoft.Json;
+using PTSoft.FantasyCouple.Model;
 
-namespace BdsCP.Util;
+namespace PTSoft.FantasyCouple.Util;
 
 public class Data
 {

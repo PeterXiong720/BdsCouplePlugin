@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace BdsCP.Util;
+namespace PTSoft.FantasyCouple.Util;
 
 public class Configuration
 {

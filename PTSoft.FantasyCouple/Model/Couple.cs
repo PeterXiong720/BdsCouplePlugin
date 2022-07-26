@@ -1,6 +1,6 @@
 ﻿using MC;
 
-namespace BdsCP.Model;
+namespace PTSoft.FantasyCouple.Model;
 
 public class Couple
 {

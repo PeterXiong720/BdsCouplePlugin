@@ -4,11 +4,17 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Company>PTSoft</Company>
+        <Product>BdsCouplePlugin</Product>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
 
     <ItemGroup>
         <Reference Include="LiteLoader.NET">
             <HintPath>./sdk/LiteLoader.NET.dll</HintPath>
+        </Reference>
+        <Reference Include="LLMoney.NET.dll">
+            <HintPath>./sdk/LLMoney.NET.dll</HintPath>
         </Reference>
     </ItemGroup>
 

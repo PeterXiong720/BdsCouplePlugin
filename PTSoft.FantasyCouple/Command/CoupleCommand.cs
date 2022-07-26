@@ -1,8 +1,8 @@
-﻿using BdsCP.View;
-using LLNET.DynamicCommand;
+﻿using LLNET.DynamicCommand;
 using MC;
+using PTSoft.FantasyCouple.View;
 
-namespace BdsCP.Command;
+namespace PTSoft.FantasyCouple.Command;
 
 [Command("couple", Description = "打开CP管理页面", Alia = "cp", Permission = CommandPermissionLevel.Any)]
 [CommandEmptyOverload]

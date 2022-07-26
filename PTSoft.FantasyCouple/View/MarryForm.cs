@@ -1,9 +1,10 @@
-﻿using BdsCP.Util;
+﻿using LLMoney;
 using LLNET;
 using LLNET.Form;
 using MC;
+using PTSoft.FantasyCouple.Util;
 
-namespace BdsCP.View;
+namespace PTSoft.FantasyCouple.View;
 
 public class MarryForm
 {
@@ -30,9 +31,25 @@ public class MarryForm
         var lover = data["lover"].Value;
         var message = data["message"].Value ?? string.Empty;
         if (lover == null)
+        {
+            player.SendModalForm(
+                "§c错误",
+                "求婚申请发送失败。如有任何异议请向管理员反馈",
+                "确定", "反馈", _ => { });
             return;
+        }
+
         var loverPlayer = GlobalService.Level.GetPlayer(lover);
-        loverPlayer?.SendModalForm(
+        if (Data.CheckIsMarried(loverPlayer))
+        {
+            player.SendModalForm(
+                "§c错误",
+                "对方已经名花有主力（悲）。如有任何异议请向管理员反馈",
+                "确定", "反馈", _ => { });
+            return;
+        }
+
+        var success = (bool) loverPlayer?.SendModalForm(
             "求婚申请",
             $"{message} -- {player.Name}",
             "同意",
@@ -41,8 +58,8 @@ public class MarryForm
             {
                 if (!result)
                     return;
-                if (PluginMain.EconomySystem.GetMoney(player.Xuid) < Configuration.Cost ||
-                    PluginMain.EconomySystem.GetMoney(lover) < Configuration.Cost)
+                if (EconomySystem.GetMoney(player.Xuid) < Configuration.Cost ||
+                    EconomySystem.GetMoney(lover) < Configuration.Cost)
                 {
                     player.SendModalForm(
                         "§c错误",
@@ -55,11 +72,19 @@ public class MarryForm
                     return;
                 }
 
-                PluginMain.EconomySystem.ReduceMoney(player.Xuid, Configuration.Cost);
-                PluginMain.EconomySystem.ReduceMoney(lover, Configuration.Cost);
+                EconomySystem.ReduceMoney(player.Xuid, Configuration.Cost);
+                EconomySystem.ReduceMoney(lover, Configuration.Cost);
                 Data.AddCouple(player, loverPlayer);
                 Data.SaveAsync().Wait();
-            });
+                Level.BroadcastText($"§3{player.RealName}§c和§3{loverPlayer.RealName}§c刚刚登记结婚力，恭喜这对新人喜结良缘！", TextType.RAW);
+            })!;
+        if (!success)
+        {
+            player.SendModalForm(
+                "§c错误",
+                "求婚申请发送失败。如有任何异议请向管理员反馈",
+                "确定", "反馈", _ => { });
+        }
     }
 
     public MarryForm(Player player)

@@ -1,10 +1,10 @@
-﻿using BdsCP.Util;
-using LLNET.Event;
+﻿using LLNET.Event;
 using LLNET.Hook;
 using LLNET.Logger;
 using MC;
+using PTSoft.FantasyCouple.Util;
 
-namespace BdsCP;
+namespace PTSoft.FantasyCouple;
 
 public static class SimpleTitle
 {
@@ -25,11 +25,11 @@ public static class SimpleTitle
         };
     }
 
-    private static int GetDim(Player player)
-    {
-        return HookAPI.SymCall<int, IntPtr>(
-            "?getDimensionId@Actor@@UEBA?AV?$AutomaticID@VDimension@@H@@XZ", player.Intptr);
-    }
+    // private static int GetDim(Player player)
+    // {
+    //     return HookAPI.SymCall<int, IntPtr>(
+    //         "?getDimensionId@Actor@@UEBA?AV?$AutomaticID@VDimension@@H@@XZ", player.Intptr);
+    // }
 
     private static string Format(string text, Player player)
     {
@@ -37,14 +37,14 @@ public static class SimpleTitle
             .ReplaceVariable("cp", player, pl =>
             {
                 var couple = Data.GetCoupleByPlayer(pl);
-                return couple == null ? "单身" : couple.Name;
+                return couple == null ? "玩家" : couple.Name;
             })
             .ReplaceVariable("name", player, pl => pl.Name)
             .ReplaceVariable("msg", player, _ => text)
             .ReplaceVariable("platform", player, pl => pl.DeviceTypeName)
             .ReplaceVariable("time", player, _ => DateTime.Now.ToString("MM/dd - HH:mm"))
             .ReplaceVariable("ping", player, pl => pl.AvgPing.ToString())
-            .ReplaceVariable("dim", player, pl => Configuration.DimensionName[GetDim(pl)]);
+            .ReplaceVariable("dim", player, pl => Configuration.DimensionName[pl.DimensionId]);
     }
 }
 

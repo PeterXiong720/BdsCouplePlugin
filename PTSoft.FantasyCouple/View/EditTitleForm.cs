@@ -1,8 +1,9 @@
-﻿using BdsCP.Util;
+﻿using LLMoney;
 using LLNET.Form;
 using MC;
+using PTSoft.FantasyCouple.Util;
 
-namespace BdsCP.View;
+namespace PTSoft.FantasyCouple.View;
 
 public class EditTitleForm
 {
@@ -17,7 +18,7 @@ public class EditTitleForm
         if (!Data.CheckIsMarried(_player))
             return;
         _form.Append(new Label("tips",
-                $"付费修改CP称号。彩色文本需要额外花费。\n纯文本：${Configuration.ChangeTitleCost}\n彩色：{Configuration.ColorTitleCost}"))
+                $"付费修改CP称号。彩色文本需要额外花费。\n纯文本：${Configuration.ChangeTitleCost}\n彩色：${Configuration.ColorTitleCost}"))
             .Append(new Input("nick", "请输入", "输入称号", Data.GetCoupleByPlayer(_player)?.Name));
         _form.Callback = OnSubmit;
     }
@@ -29,7 +30,7 @@ public class EditTitleForm
             return;
         var newTitle = data["nick"].Value ?? couple.Name;
         var cost = newTitle.Contains('§') ? Configuration.ColorTitleCost : Configuration.ChangeTitleCost;
-        if (PluginMain.EconomySystem.GetMoney(player.Xuid) < cost)
+        if (EconomySystem.GetMoney(player.Xuid) < cost)
         {
             player.SendModalForm(
                 "§c错误", 
@@ -37,9 +38,13 @@ public class EditTitleForm
                 "确定", "反馈", _ => { });
             return;
         }
-        PluginMain.EconomySystem.ReduceMoney(player.Xuid, cost);
+        EconomySystem.ReduceMoney(player.Xuid, cost);
         couple.Name = newTitle;
         Data.SaveAsync().Wait();
+        player.SendModalForm(
+            "§e成功",
+            $"称号修改成功，共花费{cost}",
+            "确定", "反馈", _ => { });
     }
 
     public EditTitleForm(Player player)

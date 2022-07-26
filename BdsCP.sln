@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BdsCP", "BdsCP\BdsCP.csproj", "{AD035E08-C06E-4316-B8DF-ED5FE867334F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PTSoft.FantasyCouple", "PTSoft.FantasyCouple\PTSoft.FantasyCouple.csproj", "{AD035E08-C06E-4316-B8DF-ED5FE867334F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

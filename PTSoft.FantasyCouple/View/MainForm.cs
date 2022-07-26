@@ -1,10 +1,10 @@
-using BdsCP.Model;
-using BdsCP.Util;
 using LLNET;
 using LLNET.Form;
 using MC;
+using PTSoft.FantasyCouple.Model;
+using PTSoft.FantasyCouple.Util;
 
-namespace BdsCP.View;
+namespace PTSoft.FantasyCouple.View;
 
 public class MainForm
 {
@@ -89,10 +89,9 @@ public class MainForm
                             "对方想与您解除CP关系",
                             "同意", "拒绝", result =>
                             {
-                                if (result)
-                                {
-                                    Data.DeleteCouple(_couple.Id);
-                                }
+                                if (!result) return;
+                                Data.DeleteCouple(_couple.Id);
+                                Data.SaveAsync().Wait();
                             });
                     };
                     form.SendTo(pl);
@@ -114,8 +113,8 @@ public class MainForm
         else
         {
             var lover = _couple.Husband == player.Xuid ? _couple.Wife : _couple.Husband;
-            var loverPlayer = Level.GetAllPlayers().FirstOrDefault(pl => pl.Xuid == lover);
-            content = $"CP编号：{_couple.Name}\nCP Id：{_couple.Id}\n当前CP：{loverPlayer?.Name}";
+            var loverPlayer = GlobalService.Level.GetPlayer(lover);
+            content = $"CP编号：{_couple.Name}\nCP Id：{_couple.Id}\n当前CP：{loverPlayer?.Name ?? "已离线"}";
         }
 
         _form = new SimpleForm("CP管理", content);
