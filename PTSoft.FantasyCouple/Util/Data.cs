@@ -21,17 +21,18 @@ public class Data
     public static Couple? GetCoupleById(Guid id) =>
         Couples.Where(couple => !couple.IsDeleted).FirstOrDefault(couple => couple.Id == id);
 
-    public static bool AddCouple(Player husband, Player wife, string? nick = null)
+    public static Couple? AddCouple(Player husband, Player wife, string? nick = null)
     {
-        if (CheckIsMarried(husband) || CheckIsMarried(wife)) { return false; }
+        if (CheckIsMarried(husband) || CheckIsMarried(wife)) { return null; }
 
         var cp = new Couple(husband.Xuid, wife.Xuid, nick)
         {
             Id = Guid.NewGuid(),
             Index = Couples.Count,
+            Name = $"CP-{Couples.Count}"
         };
         Couples.Add(cp);
-        return true;
+        return cp;
     }
 
     public static bool DeleteCouple(Player player)

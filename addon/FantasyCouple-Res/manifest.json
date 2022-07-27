@@ -1,0 +1,30 @@
+{
+	"format_version": 2,
+	"header": {
+		"description": "§cFantasy §gCouple §7v§21.0.0 §7by §bPeterXiong720\n§3BDS Couple Plugin.",
+		"name": "§cFantasy§gCouple",
+		"uuid": "941ab105-9e14-477e-aab6-5d7fd3215e92",
+		"version": [
+			1,
+			0,
+			0
+		],
+		"min_engine_version": [
+			1,
+			14,
+			0
+		]
+	},
+	"modules": [
+		{
+			"description": "FantasyCouple",
+			"type": "resources",
+			"uuid": "becc63dd-35b7-47e5-8c5a-3e000bd1a5b4",
+			"version": [
+				1,
+				0,
+				0
+			]
+		}
+	]
+}

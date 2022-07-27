@@ -8,7 +8,7 @@ public class Configuration
     /// 数据文件位置
     /// </summary>
     [JsonProperty("data")]
-    public string Data { get; set; } = "plugins/BdsCp/data.json";
+    public string Data { get; set; } = "plugins/FantasyCouple/data.json";
 
     /// <summary>
     /// 是否开启内置称号系统
@@ -51,15 +51,15 @@ public class Configuration
 
     public static async Task InitAsync()
     {
-        Directory.CreateDirectory("plugins/BdsCp");
-        if (!File.Exists("plugins/BdsCp/configuration.json"))
+        Directory.CreateDirectory("plugins/FantasyCouple");
+        if (!File.Exists("plugins/FantasyCouple/configuration.json"))
         {
             Config = new Configuration();
             await SaveAsync();
         }
         else
         {
-            using var sr = new StreamReader("plugins/BdsCp/configuration.json");
+            using var sr = new StreamReader("plugins/FantasyCouple/configuration.json");
             var json = await sr.ReadToEndAsync();
             var config = JsonConvert.DeserializeObject<Configuration>(json);
             Config = config ?? new Configuration();
@@ -68,7 +68,7 @@ public class Configuration
 
     public static async Task SaveAsync()
     {
-        await using var sw = new StreamWriter("plugins/BdsCp/configuration.json");
+        await using var sw = new StreamWriter("plugins/FantasyCouple/configuration.json");
         await sw.WriteAsync(JsonConvert.SerializeObject(Config, Formatting.Indented));
     }
 }

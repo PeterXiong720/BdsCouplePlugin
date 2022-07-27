@@ -42,7 +42,7 @@ public static class SimpleTitle
             .ReplaceVariable("name", player, pl => pl.Name)
             .ReplaceVariable("msg", player, _ => text)
             .ReplaceVariable("platform", player, pl => pl.DeviceTypeName)
-            .ReplaceVariable("time", player, _ => DateTime.Now.ToString("MM/dd - HH:mm"))
+            .ReplaceVariable("time", player, _ => DateTime.Now.ToString("MM/dd-HH:mm"))
             .ReplaceVariable("ping", player, pl => pl.AvgPing.ToString())
             .ReplaceVariable("dim", player, pl => Configuration.DimensionName[pl.DimensionId]);
     }

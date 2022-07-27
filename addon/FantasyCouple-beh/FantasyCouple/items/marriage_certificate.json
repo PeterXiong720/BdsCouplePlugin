@@ -1,0 +1,22 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:item": {
+        "description": {
+            "identifier": "couple:marriage_certificate",
+            "category": "items"
+        },
+        "components": {
+            "minecraft:max_stack_size": 1,
+            "minecraft:display_name": {
+                "value": "item.couple.marriage_certificate"
+            },
+            "minecraft:creative_category": {
+                "parent": "itemGroup.name.ingot"
+            },
+            "minecraft:icon": {
+                "texture": "marriage_certificate"
+            }
+        },
+        "events": {}
+    }
+}

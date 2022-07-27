@@ -1,0 +1,49 @@
+{
+   "format_version": "1.14.0",
+   "sound_definitions": {
+      "record.otherside": {
+         "max_distance": 64.0,
+         "sounds": [
+            {
+               "load_on_low_memory": true,
+               "name": "sounds/music/game/records/nerver-gonna-give-you-up",
+               "stream": true,
+               "volume": 0.50
+            }
+         ]
+      },
+      "music.rickroll": {
+         "category": "music",
+         "max_distance": 512.0,
+         "sounds": [
+            {
+               "name": "sounds/music/game/records/nerver-gonna-give-you-up",
+               "stream": true,
+               "load_on_low_memory": true
+            }
+         ]
+      },
+      "music.aini": {
+         "category": "music",
+         "max_distance": 512.0,
+         "sounds": [
+            {
+               "name": "sounds/music/mine/aini",
+               "stream": true,
+               "load_on_low_memory": true
+            }
+         ]
+      },
+      "music.thedayyouwentaway": {
+         "category": "music",
+         "max_distance": 512.0,
+         "sounds": [
+            {
+               "name": "sounds/music/mine/thedayyouwentaway",
+               "stream": true,
+               "load_on_low_memory": true
+            }
+         ]
+      }
+   }
+}

@@ -29,6 +29,16 @@ public class EditTitleForm
         if(couple==null)
             return;
         var newTitle = data["nick"].Value ?? couple.Name;
+        if(newTitle == couple.Name)
+            return;
+        if (newTitle.Replace("§", "").Length > 10)
+        {
+            player.SendModalForm(
+                "§c错误", 
+                "最多十个有效字符。如有任何异议请向管理员反馈", 
+                "确定", "反馈", _ => { });
+            return;
+        }
         var cost = newTitle.Contains('§') ? Configuration.ColorTitleCost : Configuration.ChangeTitleCost;
         if (EconomySystem.GetMoney(player.Xuid) < cost)
         {

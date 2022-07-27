@@ -4,11 +4,11 @@ using LLNET.Event;
 using PTSoft.FantasyCouple.Command;
 using PTSoft.FantasyCouple.Util;
 
-[assembly: LibPath("plugins\\BdsCP\\libs")]
+[assembly: LibPath("plugins\\FantasyCouple\\libs")]
 
 namespace PTSoft.FantasyCouple;
 
-[PluginMain("BdsCP")]
+[PluginMain("FantasyCouple")]
 public class PluginMain : IPluginInitializer
 {
     public void OnInitialize()

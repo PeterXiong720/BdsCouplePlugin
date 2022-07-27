@@ -9,7 +9,7 @@ namespace PTSoft.FantasyCouple.View;
 public class MainForm
 {
     //private static readonly Configuration Configuration = Configuration.Config;
-    
+
     private readonly Player _player;
 
     private readonly SimpleForm _form;
@@ -20,15 +20,12 @@ public class MainForm
     {
         if (_player.IsOP)
         {
-            _form.AddButton("管理员菜单", string.Empty, pl =>
-            {
-                pl.SendText("§c此功能未包括在定制协议中，暂不予以实现");
-            });
+            _form.AddButton("管理员菜单", "textures/ui/RepeatSquare", pl => { pl.SendText("§c此功能未包括在定制协议中，暂不予以实现"); });
         }
-        
+
         if (_couple == null)
         {
-            _form.AddButton("登记结婚", string.Empty, pl =>
+            _form.AddButton("登记结婚", "textures/items/marriage_certificate", pl =>
             {
                 if (Data.CheckIsMarried(pl))
                 {
@@ -52,15 +49,15 @@ public class MainForm
                     ? "§c此功能未包括在定制协议中，暂不予以实现（主要是界面太单调了，放几个按钮占位置，手动滑稽，只有OP才会看到这条提示）"
                     : "§e此功能未开放");
             }
-            
-            _form.AddButton("Oh baby 情话多说一点（私信）", string.Empty, Tell)
-                .AddButton("想我就多看一眼（交换坐标）", string.Empty, Tell)
-                .AddButton("在大头贴画满心号，贴在手机上对你微笑（编辑称号）", string.Empty, pl =>
+
+            _form.AddButton("Oh baby 情话多说一点（私信）", "textures/ui/mail", Tell)
+                .AddButton("想我就多看一眼（交换坐标）", "textures/ui/promo_bee", Tell)
+                .AddButton("在大头贴画满心号，贴在手机上对你微笑（编辑称号）", "textures/ui/change_title", pl =>
                 {
                     var form = new EditTitleForm(pl);
                     form.Show();
                 })
-                .AddButton("爱过也哭过笑过痛过之后只剩再见（离婚）", string.Empty, pl =>
+                .AddButton("爱过也哭过笑过痛过之后只剩再见（离婚）", "textures/items/divorce_certificate", pl =>
                 {
                     #region 离婚
 
@@ -75,7 +72,7 @@ public class MainForm
                             return;
                         var lover = _couple.Husband == player.Xuid ? _couple.Wife : _couple.Husband;
                         var loverPlayer = GlobalService.Level.GetPlayer(lover);
-                        if (loverPlayer == null)
+                        if (loverPlayer == null || lover == player.Xuid)
                         {
                             player.SendModalForm(
                                 "§c错误",
@@ -93,6 +90,27 @@ public class MainForm
                                 Data.DeleteCouple(_couple.Id);
                                 Data.SaveAsync().Wait();
                             });
+                        Level.RuncmdEx($"playsound music.thedayyouwentaway {player.Name}");
+                        Level.RuncmdEx($"playsound music.thedayyouwentaway {loverPlayer.Name}");
+
+                        var item1 = ItemStack.Create("couple:divorce_certificate", 1);
+                        item1.SetLore(new[]
+                        {
+                            $"§3Husband: {player.RealName}",
+                            $"§3Wife: {loverPlayer.RealName}",
+                            $"§gCP编号: {_couple.Name}",
+                            $"§7ID: {_couple.Id}"
+                        });
+                        var item2 = ItemStack.Create("couple:divorce_certificate", 1);
+                        item2.SetLore(new[]
+                        {
+                            $"§3Husband: {player.RealName}",
+                            $"§3Wife: {loverPlayer.RealName}",
+                            $"§gCP编号: {_couple.Name}",
+                            $"§7ID: {_couple.Id}"
+                        });
+                        player.GiveItem(item1);
+                        loverPlayer.GiveItem(item2);
                     };
                     form.SendTo(pl);
 
